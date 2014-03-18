@@ -66,4 +66,9 @@ Values: TRUE or FALSE</description>
         <description>Can create new customers + everything a normal Employee can do</description>
         <role-name>SuperEmployee</role-name>
     </security-role>
+    <ejb-local-ref>
+        <ejb-ref-name>bankManagerBean</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <ejb-link>BankBackend.jar#BankManagerBean</ejb-link>
+    </ejb-local-ref>
 </web-app>
