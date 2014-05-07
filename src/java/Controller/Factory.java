@@ -10,18 +10,13 @@ import Commands.ShowLoginCommand;
 import Commands.TargetCommand;
 import Commands.TransferCommand;
 import dk.cphbusiness.bank.contract.BankManager;
-import dk.cphbusiness.bank.control.BankManagerBean;
+//import dk.cphbusiness.bank.control.BankManagerBean;
 import dk.cphbusiness.bank.view.PrepareTransfer;
-//import dk.cphbusiness.dummy.bank.control.DummyBankManager;
+import dk.cphbusiness.dummy.bank.control.DummyBankManager;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import security.SecurityRole;
 
@@ -31,15 +26,17 @@ import security.SecurityRole;
  */
 public class Factory {
 
-    BankManagerBean bankManagerBean = lookupBankManagerBeanBean();
-
+   // BankManagerBean bankManagerBean = lookupBankManagerBeanBean();
+   //private final BankManagerBean manager;
     private static Factory instance = null;
-    private final BankManagerBean manager;
+    private final BankManager manager;
     private final Map<String, Command> commands = new HashMap<>();
 
     private Factory() {
+        
+        manager = new DummyBankManager();
 
-        manager = lookupBankManagerBeanBean();
+        //manager = lookupBankManagerBeanBean();
 
         Map<SecurityRole, String> roles = new HashMap();
         roles.put(SecurityRole.Employee, "/employees/startEmployeePage.jsp");
@@ -99,13 +96,13 @@ public class Factory {
         }
     }
 
-    private BankManagerBean lookupBankManagerBeanBean() {
-        try {
-            Context c = new InitialContext();
-            return (BankManagerBean) c.lookup("java:global/AbpFrontEnd/BankManagerBean!dk.cphbusiness.bank.control.BankManagerBean");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
+   // private BankManagerBean lookupBankManagerBeanBean() {
+     //   try {
+       //     Context c = new InitialContext();
+         //   return (BankManagerBean) c.lookup("java:global/AbpFrontEnd/BankManagerBean!dk.cphbusiness.bank.control.BankManagerBean");
+       // } catch (NamingException ne) {
+         //   Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+           // throw new RuntimeException(ne);
+        //}
+    //}
 }
